@@ -13,9 +13,9 @@ function LoginForm() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    dispatch(login({ email, password }))
+    await dispatch(login({ email, password }))
     navigate('/profile')
   }
 
