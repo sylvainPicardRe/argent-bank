@@ -1,5 +1,9 @@
 import { StrictMode } from 'react'
 import ReactDom from 'react-dom/client'
+
+import { Provider } from 'react-redux'
+import { store } from './app/store'
+
 import './styles/index.scss'
 
 import App from './app/App'
@@ -10,6 +14,8 @@ const root = ReactDom.createRoot(container)
 
 root.render(
   <StrictMode>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </StrictMode>,
 )
