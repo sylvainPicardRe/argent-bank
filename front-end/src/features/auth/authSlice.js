@@ -21,6 +21,20 @@ export const login = createAsyncThunk(
   },
 )
 
+export const fetchUserProfile = createAsyncThunk(
+  'auth/fetchUserProfile',
+  async (_, thunkAPI) => {
+    try {
+      const data = await authService.fetchUserProfile(
+        localStorage.getItem('token'),
+      )
+      return data
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data.message)
+    }
+  },
+)
+
 const authSlice = createSlice({
   name: 'auth',
   initialState,
@@ -29,6 +43,7 @@ const authSlice = createSlice({
       state.user = null
       state.token = null
       localStorage.removeItem('token')
+      localStorage.removeItem('user')
     },
   },
   extraReducers: (builder) => {
@@ -43,6 +58,19 @@ const authSlice = createSlice({
         localStorage.setItem('token', action.payload.token)
       })
       .addCase(login.rejected, (state, action) => {
+        state.loading = false
+        state.error = action.payload
+      })
+      .addCase(fetchUserProfile.pending, (state) => {
+        state.loading = true
+        state.error = null
+      })
+      .addCase(fetchUserProfile.fulfilled, (state, action) => {
+        state.loading = false
+        state.user = action.payload
+        localStorage.setItem('user', JSON.stringify(action.payload))
+      })
+      .addCase(fetchUserProfile.rejected, (state, action) => {
         state.loading = false
         state.error = action.payload
       })

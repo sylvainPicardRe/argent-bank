@@ -7,16 +7,20 @@ import { login } from '../../features/auth/authSlice'
 import '../../styles/LoginForm.scss'
 
 function LoginForm() {
-  const dispatch = useDispatch()
   const navigate = useNavigate()
+  const dispatch = useDispatch()
   const { loading, error } = useSelector((state) => state.auth)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    await dispatch(login({ email, password }))
-    navigate('/profile')
+    try {
+      await dispatch(login({ email, password })).unwrap()
+      navigate('/profile')
+    } catch (err) {
+      console.error('Échec de la connexion :', err)
+    }
   }
 
   return (

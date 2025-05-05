@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons'
 
 import LogoutButton from '../LogoutButton'
+import UserProfile from '../UserProfile'
 
 import logo from '../../assets/argentBankLogo.png'
 import '../../styles/Nav.scss'
@@ -23,7 +24,10 @@ function Nav() {
       </Link>
       <div>
         {token ? (
-          <LogoutButton />
+          <>
+            <UserProfile />
+            <LogoutButton />
+          </>
         ) : (
           <Link to="/login" className="main-nav-item">
             <FontAwesomeIcon
