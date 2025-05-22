@@ -19,13 +19,32 @@ export const fetchUserProfile = async (token) => {
       },
     },
   )
-
   return response.data.body
+}
+
+export const updateUserProfile = async (firstName, lastName) => {
+  const token = localStorage.getItem('token')
+  try {
+    const response = await axios.put(
+      `${API_URL}user/profile`,
+      { firstName, lastName },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      },
+    )
+    console.log(response.data)
+  } catch (error) {
+    console.log('Erreur lors de la mise à jour du profil:', error)
+  }
 }
 
 const authService = {
   login,
   fetchUserProfile,
+  updateUserProfile,
 }
 
 export default authService

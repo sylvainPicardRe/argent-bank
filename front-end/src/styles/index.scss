@@ -8,7 +8,7 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: $body;
+  color: $body !important;
 }
 
 body {
@@ -60,4 +60,40 @@ button {
   color: #fff;
   font-weight: bold;
   padding: 10px;
+  margin-bottom: 1rem;
+  &:hover {
+    cursor: pointer;
+  }
 }
+
+/* Le fond semi-transparent */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* Fond noir semi-transparent */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999; /* Assure-toi que le modal est au-dessus du reste du contenu */
+}
+
+.input-group {
+  margin-bottom: 10px;
+}
+
+.save-button,
+.cancel-button {
+  width: 100%;
+  padding: 10px;
+  background-color: #00bc77;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+// .save-button:hover {
+//   background-color: #45a049;
+// }

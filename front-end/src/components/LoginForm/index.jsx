@@ -1,13 +1,11 @@
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router'
 
 import { login } from '../../features/auth/authSlice'
 
 import '../../styles/LoginForm.scss'
 
 function LoginForm() {
-  const navigate = useNavigate()
   const dispatch = useDispatch()
   const { loading, error } = useSelector((state) => state.auth)
   const [email, setEmail] = useState('')
@@ -17,7 +15,6 @@ function LoginForm() {
     e.preventDefault()
     try {
       await dispatch(login({ email, password })).unwrap()
-      navigate('/profile')
     } catch (err) {
       console.error('Échec de la connexion :', err)
     }

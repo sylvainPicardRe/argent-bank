@@ -1,0 +1,22 @@
+.edit-form,
+.buttons-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.edit-form__input {
+  background-color: #e3e9f0;
+  border: 1px solid #c3cfd9;
+  border-radius: 4px;
+  padding: 6px 10px;
+  font-size: 14px;
+  color: #333;
+  width: 200px;
+  box-sizing: border-box;
+}
+
+.btn {
+  width: 100px;
+  margin: 1rem 0;
+}

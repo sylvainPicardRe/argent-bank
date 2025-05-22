@@ -35,6 +35,18 @@ export const fetchUserProfile = createAsyncThunk(
   },
 )
 
+export const updateUserProfile = createAsyncThunk(
+  'auth/updateUserProfile',
+  async ({ firstName, lastName }, thunkAPI) => {
+    try {
+      const data = await authService.updateUserProfile(firstName, lastName)
+      return data
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data.message)
+    }
+  },
+)
+
 const authSlice = createSlice({
   name: 'auth',
   initialState,
@@ -71,6 +83,18 @@ const authSlice = createSlice({
         localStorage.setItem('user', JSON.stringify(action.payload))
       })
       .addCase(fetchUserProfile.rejected, (state, action) => {
+        state.loading = false
+        state.error = action.payload
+      })
+      .addCase(updateUserProfile.pending, (state) => {
+        state.loading = true
+        state.error = null
+      })
+      .addCase(updateUserProfile.fulfilled, (state, action) => {
+        state.loading = false
+        state.user = action.payload
+      })
+      .addCase(updateUserProfile.rejected, (state, action) => {
         state.loading = false
         state.error = action.payload
       })
